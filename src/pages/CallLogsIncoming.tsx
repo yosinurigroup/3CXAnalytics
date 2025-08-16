@@ -91,18 +91,7 @@ const mockIncomingCallLogs: CallLogEntry[] = [
 
 export default function CallLogsIncoming() {
   return (
-    <div className="space-y-6">
-      {/* Page Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Incoming Call Logs</h1>
-          <p className="text-muted-foreground mt-1">
-            Real-time incoming call analytics and transcriptions
-          </p>
-        </div>
-      </div>
-
-      {/* Call Logs Table */}
+    <div className="h-full p-6">
       <CallLogsTable data={mockIncomingCallLogs} />
     </div>
   );
