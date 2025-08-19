@@ -5,7 +5,7 @@
   "description": "3CX Analytics Dashboard - Monorepo",
   "scripts": {
     "build": "npm run build:client && npm run build:server",
-    "build:client": "cd client && npm install && npm run build",
+    "build:client": "cd client && npm install && npm run vercel-build",
     "build:server": "cd server && npm install && echo 'Server build completed'",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd client && npm run dev",
