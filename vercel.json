@@ -3,18 +3,18 @@
   "buildCommand": "npm run vercel-build",
   "installCommand": "npm install && cd server && npm install",
   "functions": {
-    "server/api/index.js": {
+    "api/index.js": {
       "maxDuration": 30
     }
   },
   "routes": [
     {
       "src": "/health",
-      "dest": "/server/api/index.js"
+      "dest": "/api/index.js"
     },
     {
       "src": "/api/(.*)",
-      "dest": "/server/api/index.js"
+      "dest": "/api/index.js"
     },
     {
       "src": "/static/(.*)",
@@ -47,7 +47,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/server/api/index.js"
+      "dest": "/api/index.js"
     }
   ],
   "env": {
