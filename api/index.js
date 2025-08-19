@@ -1,10 +1,32 @@
 // Vercel serverless function handler for 3CX Analytics API
 // This file imports the Express app from ../server/index.cjs and exports it as a serverless function
 
-const app = require('../server/index.cjs');
+let app;
+
+// Lazy load the app to handle any import issues
+const getApp = () => {
+  if (!app) {
+    try {
+      app = require('../server/index.cjs');
+    } catch (error) {
+      console.error('Failed to load Express app:', error);
+      throw error;
+    }
+  }
+  return app;
+};
 
 // Export the handler function that Vercel expects
-// This follows the pattern: (req, res) => app(req, res)
 module.exports = (req, res) => {
-  return app(req, res);
+  try {
+    const expressApp = getApp();
+    return expressApp(req, res);
+  } catch (error) {
+    console.error('Serverless function error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
 };
