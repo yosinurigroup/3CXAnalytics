@@ -4,7 +4,6 @@ client/node_modules/
 server/node_modules/
 
 # Development files
-client/src/
 server/test/
 server/scripts/
 server/uploads/
