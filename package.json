@@ -13,7 +13,7 @@
     "start": "cd server && npm start",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install",
     "clean": "rm -rf client/dist server/node_modules client/node_modules node_modules",
-    "vercel-build": "npm run build:client"
+    "vercel-build": "npm run build:client && npm run build:server"
   },
   "workspaces": [
     "client",
