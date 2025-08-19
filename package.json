@@ -5,14 +5,14 @@
   "scripts": {
     "build": "npm run build:client",
     "vercel-build": "npm run build",
-    "build:client": "npm --prefix client ci && npm --prefix client run build && rm -rf public && mkdir -p public && cp -R client/dist/* public/"
+    "build:client": "NPM_CONFIG_PRODUCTION=false npm --prefix client ci && npm --prefix client run build && rm -rf public && mkdir -p public && cp -R client/dist/* public/"
   },
   "dependencies": {
     "mongodb": "^6.18.0",
     "bcrypt": "^6.0.0"
   },
   "engines": {
-    "node": "18.x",
+    "node": "22.x",
     "npm": ">=10.0.0"
   }
 }
