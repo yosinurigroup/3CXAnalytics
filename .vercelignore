@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Development files
+client/src/
+server/test/
+server/scripts/
+server/uploads/
+
+# Build artifacts (except client/dist which is needed)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+DEPLOYMENT_VERIFICATION.md
+VERCEL_DEPLOYMENT_GUIDE.md
+
+# Test files
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
