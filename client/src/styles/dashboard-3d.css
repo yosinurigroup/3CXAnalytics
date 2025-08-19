@@ -1,0 +1,306 @@
+/* 3D Dashboard Animations and Effects */
+
+/* Global 3D perspective */
+.dashboard-3d {
+  perspective: 1000px;
+  perspective-origin: center center;
+}
+
+/* Enhanced 3D Card Effects */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) rotateX(5deg) rotateY(2deg) scale(1.02);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Floating animation for metric cards */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-6px) rotateX(2deg); }
+}
+
+.metric-card {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: var(--animation-delay, 0s);
+}
+
+.metric-card:nth-child(1) { --animation-delay: 0s; }
+.metric-card:nth-child(2) { --animation-delay: 0.5s; }
+.metric-card:nth-child(3) { --animation-delay: 1s; }
+.metric-card:nth-child(4) { --animation-delay: 1.5s; }
+
+/* Pulsing glow effect for active elements */
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.glow-effect {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2s infinite;
+}
+
+/* Glass morphism effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Gradient text effects */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Icon hover effects */
+.icon-3d {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.icon-3d:hover {
+  transform: rotateY(180deg) scale(1.1);
+}
+
+/* Chart container 3D effects */
+.chart-container {
+  transform-style: preserve-3d;
+  transition: all 0.4s ease;
+}
+
+.chart-container:hover {
+  transform: translateZ(10px) rotateX(2deg);
+}
+
+/* Filter panel slide-in animation */
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.filter-panel {
+  animation: slideInFromTop 0.5s ease-out;
+}
+
+/* Staggered animation for grid items */
+.grid-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+  animation-delay: calc(var(--item-index, 0) * 0.1s);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Number counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.counter-animation {
+  animation: countUp 0.8s ease-out;
+}
+
+/* Progress bar 3D effect */
+.progress-3d {
+  position: relative;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  transition: width 1s ease-out;
+}
+
+/* Tooltip 3D effect */
+.tooltip-3d {
+  transform: translateZ(50px);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* Button 3D effects */
+.button-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-3d:hover {
+  transform: translateY(-2px) translateZ(4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.button-3d:active {
+  transform: translateY(0) translateZ(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive 3D effects */
+@media (max-width: 768px) {
+  .card-3d:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+  
+  .metric-card {
+    animation: none; /* Disable floating on mobile for performance */
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .card-3d,
+  .metric-card,
+  .icon-3d,
+  .chart-container,
+  .grid-item {
+    animation: none;
+    transition: none;
+  }
+  
+  .card-3d:hover {
+    transform: none;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .glass-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .progress-3d {
+    background: linear-gradient(135deg, #374151, #1f2937);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .card-3d {
+    border: 2px solid currentColor;
+  }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: none;
+  }
+}
+
+/* Performance optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Custom scrollbar for dashboard */
+.dashboard-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.dashboard-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}

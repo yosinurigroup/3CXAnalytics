@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "echo 'Static files already built'",
-    "vercel-build": "echo 'Static files already built'"
+    "build": "npm run build:client",
+    "vercel-build": "npm run build",
+    "build:client": "npm --prefix client ci && npm --prefix client run build && rm -rf public && mkdir -p public && cp -R client/dist/* public/"
   },
   "dependencies": {
     "mongodb": "^6.18.0",
     "bcrypt": "^6.0.0"
   },
   "engines": {
-    "node": "22.x",
+    "node": "18.x",
     "npm": ">=10.0.0"
   }
 }

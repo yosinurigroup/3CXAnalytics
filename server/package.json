@@ -1,0 +1,42 @@
+{
+  "name": "3cx-analytics-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.cjs",
+    "dev": "nodemon index.cjs",
+    "test": "node test/performanceTest.cjs",
+    "build": "echo 'Server build completed - static files served from client/dist'",
+    "build:client": "cd ../client && npm ci && npm run build",
+    "postbuild": "echo 'Build completed successfully'",
+    "vercel-build": "echo 'Server build completed - client build handled by root package.json'"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.1",
+    "multer": "^2.0.2",
+    "node-cache": "^5.1.2",
+    "papaparse": "^5.5.3"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.16.5",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": "22.x",
+    "npm": ">=10.0.0"
+  }
+}

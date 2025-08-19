@@ -1,0 +1,210 @@
+/* Logo and Favicon Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.8));
+  }
+}
+
+@keyframes rotate-smooth {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scale-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes data-flow {
+  0% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+}
+
+/* Micro-interactions */
+.logo-container {
+  position: relative;
+  display: inline-block;
+}
+
+.logo-container::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #3b82f6);
+  background-size: 200% 200%;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.logo-container:hover::before {
+  opacity: 0.3;
+}
+
+/* Button hover effects */
+.btn-animated {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-animated::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-animated:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Table row hover effects */
+.table-row-hover {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.table-row-hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+}
+
+.table-row-hover:hover::before {
+  transform: scaleY(1);
+}
+
+/* Loading animations */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Icon animations */
+.icon-spin {
+  animation: rotate-smooth 2s linear infinite;
+}
+
+.icon-pulse {
+  animation: scale-bounce 2s ease-in-out infinite;
+}
+
+.icon-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Dark mode specific animations */
+.dark .logo-container::before {
+  background: linear-gradient(45deg, #60a5fa, #a78bfa, #60a5fa);
+}
+
+.dark .table-row-hover::before {
+  background: linear-gradient(180deg, #60a5fa, #a78bfa);
+}
+
+/* Accessibility - Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Responsive animations */
+@media (max-width: 768px) {
+  .logo-container::before {
+    display: none;
+  }
+  
+  .card-hover:hover {
+    transform: none;
+  }
+}
+
+/* Performance optimizations */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
