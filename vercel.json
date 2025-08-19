@@ -38,6 +38,10 @@
       "dest": "/client/dist/robots.txt"
     },
     {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/client/dist/index.html"
     }
