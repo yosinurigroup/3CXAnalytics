@@ -5,15 +5,14 @@
   "description": "3CX Analytics Dashboard - Monorepo",
   "scripts": {
     "build": "npm run build:client && npm run build:server",
-    "build:client": "cd client && npm install && npm run vercel-build",
-    "build:server": "cd server && npm install && echo 'Server build completed'",
+    "build:client": "cd client && npm run vercel-build",
+    "build:server": "cd server && echo 'Server build completed'",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
     "start": "cd server && npm start",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install",
-    "clean": "rm -rf client/dist server/node_modules client/node_modules node_modules",
-    "vercel-build": "npm run build:client && npm run build:server"
+    "clean": "rm -rf client/dist server/node_modules client/node_modules node_modules"
   },
   "workspaces": [
     "client",
@@ -23,7 +22,7 @@
     "concurrently": "^8.2.2"
   },
   "engines": {
-    "node": "18.x",
-    "npm": ">=8.0.0"
+    "node": "22.x",
+    "npm": ">=10.0.0"
   }
 }
