@@ -1,9 +1,118 @@
-// Simple users endpoint for testing Vercel serverless functions
-module.exports = function handler(req, res) {
-  res.status(200).json({
-    success: true,
-    message: 'Users API endpoint is working!',
-    data: [],
-    total: 0
-  });
+const { connectToDatabase } = require('./_lib/mongodb');
+
+module.exports = async function handler(req, res) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cache-Control, Pragma, Accept, Expires');
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method !== 'GET') {
+    return res.status(405).json({
+      success: false,
+      error: 'Method not allowed'
+    });
+  }
+
+  try {
+    const {
+      page = '1',
+      pageSize = '50',
+      sortBy = 'FirstName',
+      sortOrder = 'ASC',
+      search = '',
+      ...filters
+    } = req.query;
+
+    // Validate and parse query parameters
+    const options = {
+      page: Math.max(1, parseInt(page)),
+      pageSize: Math.min(50000, Math.max(1, parseInt(pageSize))), // Max 50000 per page for exports
+      sortBy: sortBy,
+      sortOrder: sortOrder.toUpperCase(),
+      search: search,
+      filters: Object.keys(filters).reduce((acc, key) => {
+        // Exclude the _t timestamp parameter from filters
+        if (filters[key] && key !== '_t') {
+          acc[key] = filters[key];
+        }
+        return acc;
+      }, {})
+    };
+
+    // NO CACHING - Set headers to prevent any caching
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store');
+
+    // Connect to MongoDB
+    const { db } = await connectToDatabase();
+    const collection = db.collection(process.env.MONGODB_USERS_COLLECTION || 'tblUsers');
+
+    console.log('[API-USERS] Fetching fresh real-time data from MongoDB (no cache)...');
+    
+    // Build query
+    const query = {};
+
+    // Search filter
+    if (options.search) {
+      query.$or = [
+        { FirstName: { $regex: options.search, $options: 'i' } },
+        { LastName: { $regex: options.search, $options: 'i' } },
+        { Email: { $regex: options.search, $options: 'i' } },
+        { Role: { $regex: options.search, $options: 'i' } }
+      ];
+    }
+
+    // Column filters
+    Object.keys(options.filters).forEach(key => {
+      if (options.filters[key] !== undefined && options.filters[key] !== null && options.filters[key] !== '') {
+        if (Array.isArray(options.filters[key])) {
+          query[key] = { $in: options.filters[key] };
+        } else {
+          query[key] = { $regex: options.filters[key], $options: 'i' };
+        }
+      }
+    });
+
+    // Sort configuration
+    const sortConfig = {};
+    sortConfig[options.sortBy] = options.sortOrder === 'ASC' ? 1 : -1;
+
+    // Execute query with pagination
+    const skip = (options.page - 1) * options.pageSize;
+    const [data, total] = await Promise.all([
+      collection
+        .find(query, { projection: { Password: 0 } }) // Exclude password from results
+        .sort(sortConfig)
+        .skip(skip)
+        .limit(parseInt(options.pageSize))
+        .toArray(),
+      collection.countDocuments(query)
+    ]);
+
+    console.log(`[API-USERS] Found ${total} total records, returning ${data.length} for page ${options.page}`);
+
+    res.json({
+      success: true,
+      data: data,
+      total: total,
+      page: parseInt(options.page),
+      pageSize: parseInt(options.pageSize),
+      totalPages: Math.ceil(total / options.pageSize)
+    });
+  } catch (error) {
+    console.error('Error in /api/users:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to fetch users',
+      data: [],
+      total: 0
+    });
+  }
 };

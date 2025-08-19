@@ -1,0 +1,38 @@
+<svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="favicon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="favicon-glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="#1e293b"/>
+  
+  <!-- Outer ring -->
+  <circle cx="24" cy="24" r="20" stroke="url(#favicon-gradient)" stroke-width="2" fill="none" opacity="0.8"/>
+  
+  <!-- Middle ring -->
+  <circle cx="24" cy="24" r="14" stroke="url(#favicon-gradient)" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="4 2"/>
+  
+  <!-- Core hexagon -->
+  <path d="M24 8 L34.39 14 L34.39 26 L24 32 L13.61 26 L13.61 14 Z" fill="url(#favicon-gradient)" opacity="0.9"/>
+  
+  <!-- Data nodes -->
+  <circle cx="24" cy="8" r="2" fill="#60a5fa"/>
+  <circle cx="34.39" cy="14" r="2" fill="#60a5fa"/>
+  <circle cx="34.39" cy="26" r="2" fill="#60a5fa"/>
+  <circle cx="24" cy="32" r="2" fill="#60a5fa"/>
+  <circle cx="13.61" cy="26" r="2" fill="#60a5fa"/>
+  <circle cx="13.61" cy="14" r="2" fill="#60a5fa"/>
+  
+  <!-- Center "3" -->
+  <text x="24" y="29" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="system-ui, -apple-system, sans-serif">3</text>
+</svg>
