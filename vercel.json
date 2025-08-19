@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:client",
-  "installCommand": "npm ci",
+  "buildCommand": "npm run build:client-direct",
+  "installCommand": "echo 'Installing root dependencies...' && npm ci && echo 'Installing client dependencies...' && cd client && npm ci && echo 'All dependencies installed successfully'",
   "functions": {
     "api/*.js": {
       "maxDuration": 30

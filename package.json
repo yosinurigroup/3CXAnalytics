@@ -5,7 +5,8 @@
   "description": "3CX Analytics Dashboard - Monorepo",
   "scripts": {
     "build": "npm run build:client && npm run build:server",
-    "build:client": "cd client && npm run vercel-build",
+    "build:client": "echo 'Starting build:client...' && echo 'Current directory:' && pwd && echo 'Listing contents:' && ls -la && echo 'Checking client directory:' && ls -la client/ && echo 'Checking client package.json:' && cat client/package.json | grep -A5 -B5 vercel-build && echo 'Changing to client directory...' && cd client && echo 'Client directory contents:' && ls -la && echo 'Running vercel-build...' && npm run vercel-build",
+    "build:client-direct": "npm --prefix client run vercel-build",
     "build:server": "cd server && echo 'Server build completed'",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd client && npm run dev",
